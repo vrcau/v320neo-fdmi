@@ -15,8 +15,6 @@ on:
         value: ${{ jobs.create_package.outputs.version }}
 
 jobs:
-  # Build and release the Package
-  # If the repository is not configured properly, this job will be skipped
   create_package:
     runs-on: ubuntu-latest
     env:
@@ -62,13 +60,13 @@ jobs:
           include-files: metaList
 
       - name: Upload .unitypackage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.unityPackage }}
           path: ${{ env.unityPackage }}
 
       - name: Upload .zip
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.zipFile }}
           path: ${{ env.zipFile }}

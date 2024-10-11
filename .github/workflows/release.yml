@@ -15,6 +15,21 @@ jobs:
     env:
       packagePath: src/Packages/${{ vars.PACKAGE_NAME }}
     steps:
+      - name: Download Package Zip Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.create_package.outputs.zipArtifact }}
+
+      - name: Download Package UnityPackage Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.create_package.outputs.unityPackageArtifact }}
+
+      - name: Unzip Artifacts
+        run: |
+          unzip ${{ needs.create_package.outputs.zipArtifact }} -d ${{ env.packagePath }}
+          unzip ${{ needs.create_package.outputs.unityPackageArtifact }} -d ${{ env.packagePath }}
+
       # Make a release tag of the version from the package.json file
       - name: Create Tag
         id: tag_version
@@ -28,6 +43,5 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            ${{ needs.create_package.outputs.zipArtifact }}
-            ${{ needs.create_package.outputs.unityPackageArtifact }}
+            "${{ github.workspace }}/${{ env.packagePath }}/**/*"
           tag_name: ${{ needs.create_package.outputs.version }}

@@ -18,7 +18,8 @@
     "com.nekometer.esnya.udon-radio-communications": "https://github.com/esnya/UdonRadioCommunications.git?path=/Packages/com.nekometer.esnya.udon-radio-communications#v6.0.0-alpha.1"
   },
   "vpmDependencies": {
-    "com.vrchat.worlds": "^3.7.1"
+    "com.vrchat.worlds": "^3.7.1",
+    "com.yuxiaviation.v320neo.fdmi.assets": "0.1.0-indev.1"
   },
   "author": {
     "name": "VRChat Aerospace University",

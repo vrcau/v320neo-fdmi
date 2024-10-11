@@ -1,0 +1,24 @@
+{
+    "name": "com.vrcau.vau320neo.fdmi",
+    "rootNamespace": "VRChatAerospaceUniversity.V320",
+    "references": [
+        "VRC.SDK3",
+        "VRC.SDKBase",
+        "UdonSharp.Runtime",
+        "tech.gyoku.FDMi.core",
+        "tech.gyoku.FDMi.aerodynamics",
+        "tech.gyoku.FDMi.avionics",
+        "UdonSharp.Editor",
+        "UdonRadioCommunication.Runtime",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

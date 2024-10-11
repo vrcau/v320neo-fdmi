@@ -1,0 +1,30 @@
+{
+  "name": "com.yuxiaviation.v320neo.fdmi",
+  "displayName": "VAU V320neo FDMi",
+  "version": "0.1.0",
+  "description": "Main package of v320neo, including script and prefab.",
+  "changelogUrl": "https://github.com/vrcau/v320neo-fdmi/releases",
+  "documentationUrl": "https: //github.com/vrcau/v320neo-fdmi",
+  "hideInEditor": false,
+  "keywords": [
+    "aircraft",
+    "vrchat",
+    "udon",
+    "a320"
+  ],
+  "license": "MIT",
+  "licenseUrl": "https://github.com/vrcau/v320neo-fdmi/blob/main/LICENSE",
+  "gitDependencies": {
+    "com.nekometer.esnya.udon-radio-communications": "https://github.com/esnya/UdonRadioCommunications.git?path=/Packages/com.nekometer.esnya.udon-radio-communications#v6.0.0-alpha.1"
+  },
+  "vpmDependencies": {
+    "com.vrchat.worlds": "^3.7.1"
+  },
+  "author": {
+    "name": "VRChat Aerospace University",
+    "email": "lipww1234@foxmail.com",
+    "url": "https://yuxiaviation.com/"
+  },
+  "unity": "2022.3",
+  "unityRelease": "22f1"
+}

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Main package of v320neo, including script and prefab.",
   "changelogUrl": "https://github.com/vrcau/v320neo-fdmi/releases",
-  "documentationUrl": "https: //github.com/vrcau/v320neo-fdmi",
+  "documentationUrl": "https://github.com/vrcau/v320neo-fdmi",
   "hideInEditor": false,
   "keywords": [
     "aircraft",
@@ -19,7 +19,8 @@
   },
   "vpmDependencies": {
     "com.vrchat.worlds": "^3.7.1",
-    "com.yuxiaviation.v320neo.fdmi.assets": "0.1.0-indev.1"
+    "com.yuxiaviation.v320neo.fdmi.assets": "0.1.0-indev.1",
+    "org.vrcau.desktop-interaction": "^0.0.1"
   },
   "author": {
     "name": "VRChat Aerospace University",

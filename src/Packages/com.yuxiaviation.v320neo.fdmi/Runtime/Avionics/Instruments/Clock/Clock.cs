@@ -4,12 +4,10 @@ using tech.gyoku.FDMi.core;
 using TMPro;
 using UdonSharp;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VRC.SDKBase;
 
-namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.Clock
-{
-    [UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.Clock {
+    [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     [AircraftLifecycleReceiver]
     public class Clock : UdonSharpBehaviour {
         [SerializeField] private TextMeshProUGUI _dateTimeText;
@@ -17,19 +15,19 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.Clock
 
         [SerializeField] private TextMeshProUGUI _chronoText;
 
-        [SerializeField] private FDMiFloat _chronoStartTime;
-        [SerializeField] private FDMiFloat _chronoPauseTime;
-        [SerializeField] private FDMiFloat _chronoOffsetTime;
-        [SerializeField] private FDMiBool _isChronoRunning;
+        [HideInInspector] [UdonSynced] [SerializeField] private float _chronoStartTime = float.NaN;
+        [HideInInspector] [UdonSynced] [SerializeField] private float _chronoPauseTime = float.NaN;
+        [HideInInspector] [UdonSynced] [SerializeField] private float _chronoOffsetTime;
+        [HideInInspector] [UdonSynced] [SerializeField] private bool _isChronoRunning;
 
         [PublicAPI]
         public void _OnInit() {
-            _ResetChrono();
+            if (Networking.IsOwner(gameObject)) _ResetChrono();
         }
 
         [PublicAPI]
         public void _OnLostPower() {
-            _ResetChrono();
+            if (Networking.IsOwner(gameObject)) _ResetChrono();
         }
 
         private void LateUpdate() {
@@ -38,42 +36,60 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.Clock
             _dateTimeText.text = currentDateTime.ToString("HH:MM");
             _secondYearText.text = currentDateTime.ToString("ss");
 
-            if (float.IsNaN(_chronoStartTime.Data)) {
+            if (float.IsNaN(_chronoStartTime)) {
                 _chronoText.text = "";
                 return;
             }
 
-            var currentTime = _isChronoRunning.Data ? Networking.GetServerTimeInSeconds() : _chronoPauseTime.Data;
-            var chronoTime = currentTime - _chronoStartTime.Data + _chronoOffsetTime.Data;
+            var currentTime = _isChronoRunning ? Networking.GetServerTimeInSeconds() : _chronoPauseTime;
+            var chronoTime = currentTime - _chronoStartTime + _chronoOffsetTime;
 
             // When running: MM:SS, when stopped: MM SS
-            _chronoText.text = $"{(int) chronoTime / 60:D2}{(_isChronoRunning.Data ? ":" : " ")}{(int) chronoTime % 60:D2}";
+            _chronoText.text =
+                $"{(int)chronoTime / 60:D2}{(_isChronoRunning ? ":" : " ")}{(int)chronoTime % 60:D2}";
         }
 
         [PublicAPI]
         public void _ToggleChrono() {
-            if (float.IsNaN(_chronoStartTime.Data)) {
-                _chronoStartTime.Data = (float) Networking.GetServerTimeInSeconds();
-                _isChronoRunning.Data = true;
+            _TakeOwnership();
+
+            if (float.IsNaN(_chronoStartTime)) {
+                _chronoStartTime = (float)Networking.GetServerTimeInSeconds();
+                _isChronoRunning = true;
+
+                RequestSerialization();
                 return;
             }
 
-            if (_isChronoRunning.Data) {
-                _chronoPauseTime.Data = (float) Networking.GetServerTimeInSeconds();
-                _isChronoRunning.Data = false;
+            if (_isChronoRunning) {
+                _chronoPauseTime = (float)Networking.GetServerTimeInSeconds();
+                _isChronoRunning = false;
+
+                RequestSerialization();
                 return;
             }
 
-            _chronoOffsetTime.Data += _chronoPauseTime.Data - (float) Networking.GetServerTimeInSeconds();
-            _isChronoRunning.Data = true;
+            _chronoOffsetTime += _chronoPauseTime - (float)Networking.GetServerTimeInSeconds();
+            _isChronoRunning = true;
+
+            RequestSerialization();
         }
 
         [PublicAPI]
         public void _ResetChrono() {
-            _chronoStartTime.Data = float.NaN;
-            _chronoPauseTime.Data = float.NaN;
-            _chronoOffsetTime.Data = 0;
-            _isChronoRunning.Data = false;
+            _TakeOwnership();
+
+            _chronoStartTime = float.NaN;
+            _chronoPauseTime = float.NaN;
+            _chronoOffsetTime = 0;
+            _isChronoRunning = false;
+
+            RequestSerialization();
+        }
+
+        private void _TakeOwnership() {
+            if (Networking.IsOwner(gameObject)) return;
+            Networking.SetOwner(Networking.LocalPlayer, gameObject);
         }
     }
 }

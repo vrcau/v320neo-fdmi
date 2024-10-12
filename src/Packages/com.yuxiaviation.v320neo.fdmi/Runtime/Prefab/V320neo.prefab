@@ -147538,7 +147538,7 @@ PrefabInstance:
     - target: {fileID: 4513859175572508846, guid: 699b4c444a4465242831b06f949c93f0,
         type: 3}
       propertyPath: _syncMethod
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5510647287791322540, guid: 699b4c444a4465242831b06f949c93f0,
         type: 3}
@@ -147699,7 +147699,7 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 2
+  _syncMethod: 3
   serializedProgramAsset: {fileID: 11400000, guid: 4d415c1054b17a349a2ae3911dae8f33,
     type: 2}
   programSource: {fileID: 11400000, guid: 309d8b6604c0e3247ad48e7456753f50, type: 2}

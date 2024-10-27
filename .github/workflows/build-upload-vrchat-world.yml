@@ -1,0 +1,126 @@
+name: Build & Upload VRChat World
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build-and-upload-nightly-world:
+    runs-on: ubuntu-latest
+
+    env:
+      unity-docker-image: unityci/editor:ubuntu-2022.3.22f1-windows-mono-3.1.0
+      workspace-path: "${{ github.workspace }}/workspace"
+      source-path: "${{ github.workspace }}/source"
+      add-packages-script-path: "${{ github.workspace }}/source/.github/workflow-scripts/add-user-package-to-vrc-get.js"
+      get-serial-script-path: "${{ github.workspace }}/source/.github/workflow-scripts/get-serial-from-license-file.js"
+      UNITY_SERIAL: XXXXX-XXXXX-XXXXX-XXXXX-XXXXX
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        if: github.event_name != 'release'
+        with:
+          path: ${{ env.source-path }}
+
+      - name: Download Release Package
+        uses: robinraju/release-downloader@a96f54c1b5f5e09e47d9504526e96febd949d4c2
+        if: github.event_name == 'release'
+        with:
+          latest: true
+          preRelease: false
+          out-file-path: ${{ env.source-path }}
+          fileName: "*.zip"
+          extract: true
+
+      - name: Download Workspace Project
+        uses: robinraju/release-downloader@a96f54c1b5f5e09e47d9504526e96febd949d4c2
+        with:
+          repository: ${{ secrets.WORKSPACE_PROJECT_REPOSITORY }}
+          tag: ${{ secrets.WORKSPACE_PROJECT_TAG }}
+          out-file-path: ${{ env.workspace-path }}
+          fileName: "*.zip"
+          extract: true
+          token: ${{ secrets.ACTION_GITHUB_TOKEN }}
+
+      - name: Setup vrc-get
+        uses: anatawa12/sh-actions/setup-vrc-get@master
+
+      - name: Add VPM Repositories
+        run: |
+          vrc-get repo add https://vpm.gyoku.tech/vpm.json
+          vrc-get repo add https://pkg-index.yuxiaviation.com
+          vrc-get repo add https://orels1.github.io/UdonToolkit/index.json
+          vrc-get repo add https://vrcd-community.github.io/vpm-packages/index.json
+          vrc-get repo list
+
+      - name: Resolve VPM Dependencies
+        working-directory: ${{ env.workspace-path }}
+        run: "vrc-get resolve"
+
+      - name: Add Source Package to vrc-get
+        if: github.event_name != 'release'
+        run: "node ${{ env.add-packages-script-path }} ${{ env.source-path }}/src/Packages/com.yuxiaviation.v320neo.fdmi"
+
+      - name: Add Release Pacakge to vrc-get
+        if: github.event_name == 'release'
+        run: "node ${{ env.add-packages-script-path }} ${{ env.source-path }}"
+
+      - name: Add Source Pacakge to Workspace
+        working-directory: ${{ env.workspace-path }}
+        run: "vrc-get install com.yuxiaviation.v320neo.fdmi -y"
+
+      - name: Add AutoBuild Packages to Workspace
+        working-directory: ${{ env.workspace-path }}
+        run: |
+          vrc-get install com.yuxiaviation.vrchat.autobuild -y
+          vrc-get install com.yuxiaviation.vrchat.autobuild.world -y
+
+      - name: Add Patcher Package to fix SDK Build on Linux
+        working-directory: ${{ env.workspace-path }}
+        run: |
+          vrc-get install cn.org.vrcd.vpm.vrchat-sdk-patcher -y
+          vrc-get install cn.org.vrcd.vpm.vrchat-sdk-patcher.worlds -y
+
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.workspace-path }}/Library
+          key: Library-Build-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-Build-
+
+      - name: Get Unity Serial
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        run: |
+          UNITY_SERIAL="$(echo $UNITY_LICENSE | node ${{ env.get-serial-script-path }})"
+          echo "::add-mask::$UNITY_SERIAL"
+          echo "UNITY_SERIAL=$UNITY_SERIAL" >> $GITHUB_ENV
+
+      - name: Build & Upload VRChat World
+        run: |
+          docker run \
+            -v ${{ env.workspace-path }}:/project \
+            -v ${{ github.workspace }}/tmp:/tmp/DefaultCompany/ \
+            -e VRC_AUTO_BUILD_USERNAME=$VRC_AUTO_BUILD_USERNAME \
+            -e VRC_AUTO_BUILD_PASSWORD=$VRC_AUTO_BUILD_PASSWORD \
+            -e VRC_AUTO_BUILD_TOTP_KEY=$VRC_AUTO_BUILD_TOTP_KEY \
+            -e VRC_AUTO_BUILD_SCENE_PATH=$VRC_AUTO_BUILD_SCENE_PATH \
+            -e VRC_AUTO_BUILD_CONTENT_ID=$VRC_AUTO_BUILD_CONTENT_ID \
+            ${{ env.unity-docker-image }} \
+            unity-editor -projectPath /project \
+            -username ${{ secrets.UNITY_EMAIL }} -password ${{ secrets.UNITY_PASSWORD }} -serial ${{ env.UNITY_SERIAL }} \
+            -batchmode -logFile - \
+            -buildTarget Win64 \
+            -executeMethod VRChatAerospaceUniversity.VRChatAutoBuild.Worlds.AutoBuildVRChatWorld.BuildAndUploadWorld
+        env:
+          VRC_AUTO_BUILD_CONTENT_ID: ${{ vars.NIGHTLY_WORLD_CONTENT_ID }}
+          VRC_AUTO_BUILD_SCENE_PATH: ${{ secrets.WORKSPACE_SCENE_PATH }}
+          VRC_AUTO_BUILD_USERNAME: ${{ secrets.VRCHAT_USERNAME }}
+          VRC_AUTO_BUILD_PASSWORD: ${{ secrets.VRCHAT_PASSWORD }}
+          VRC_AUTO_BUILD_TOTP_KEY: ${{ secrets.VRCHAT_TOTP_KEY }}

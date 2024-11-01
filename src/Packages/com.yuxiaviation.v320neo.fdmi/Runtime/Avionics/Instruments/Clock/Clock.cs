@@ -19,6 +19,8 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.Clock {
         [HideInInspector] [UdonSynced] [SerializeField] private float _chronoOffsetTime;
         [HideInInspector] [UdonSynced] [SerializeField] private bool _isChronoRunning;
 
+        [HideInInspector] [UdonSynced] [SerializeField] private bool _isDateShow;
+
         [PublicAPI]
         public void _OnInit() {
             if (Networking.IsOwner(gameObject)) _ResetChrono();
@@ -32,8 +34,14 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.Clock {
         private void LateUpdate() {
             var currentDateTime = DateTime.UtcNow;
 
-            _dateTimeText.text = currentDateTime.ToString("HH:MM");
-            _secondYearText.text = currentDateTime.ToString("ss");
+            if (_isDateShow) {
+                _dateTimeText.text = currentDateTime.ToString("MM:dd");
+                _secondYearText.text = currentDateTime.ToString("yy");
+            }
+            else {
+                _dateTimeText.text = currentDateTime.ToString("HH:MM");
+                _secondYearText.text = currentDateTime.ToString("ss");
+            }
 
             if (float.IsNaN(_chronoStartTime)) {
                 _chronoText.text = "";
@@ -89,6 +97,15 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.Clock {
         private void _TakeOwnership() {
             if (Networking.IsOwner(gameObject)) return;
             Networking.SetOwner(Networking.LocalPlayer, gameObject);
+        }
+
+        [PublicAPI]
+        public void _ToggleDate() {
+            _TakeOwnership();
+
+            _isDateShow = !_isDateShow;
+
+            RequestSerialization();
         }
     }
 }

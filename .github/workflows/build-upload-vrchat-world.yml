@@ -8,6 +8,10 @@ on:
     types: [published]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   build-and-upload-nightly-world:
     runs-on: ubuntu-latest

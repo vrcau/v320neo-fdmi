@@ -80,15 +80,11 @@ jobs:
 
       - name: Add AutoBuild Packages to Workspace
         working-directory: ${{ env.workspace-path }}
-        run: |
-          vrc-get install com.yuxiaviation.vrchat.autobuild -y
-          vrc-get install com.yuxiaviation.vrchat.autobuild.world -y
+        run: vrc-get install com.yuxiaviation.vrchat.autobuild.world -y
 
       - name: Add Patcher Package to fix SDK Build on Linux
         working-directory: ${{ env.workspace-path }}
-        run: |
-          vrc-get install cn.org.vrcd.vpm.vrchat-sdk-patcher -y
-          vrc-get install cn.org.vrcd.vpm.vrchat-sdk-patcher.worlds -y
+        run: vrc-get install cn.org.vrcd.vpm.vrchat-sdk-patcher.worlds -y
 
       - name: Cache Library
         uses: actions/cache@v4

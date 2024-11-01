@@ -1,6 +1,5 @@
 ﻿using System;
 using JetBrains.Annotations;
-using tech.gyoku.FDMi.core;
 using TMPro;
 using UdonSharp;
 using UnityEngine;

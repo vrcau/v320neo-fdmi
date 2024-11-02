@@ -75,11 +75,12 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts {
 
         private void SendInputToPage(DRAIMSKeyType keyType) {
             var pageObject = _pageRouter._GetObjectByPath(_pageRouter.CurrentPath);
+            if (!pageObject)
+                return;
 
             var page = pageObject.GetComponentInChildren<DraimsPageBase>(true);
-            if (!page) {
+            if (!page)
                 return;
-            }
 
             page._OnKeyPressed(keyType);
         }

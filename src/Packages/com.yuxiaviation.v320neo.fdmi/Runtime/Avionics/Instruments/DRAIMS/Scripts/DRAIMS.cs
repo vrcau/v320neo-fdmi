@@ -3,6 +3,7 @@ using tech.gyoku.FDMi.core;
 using UdonSharp;
 using UnityEngine;
 using VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts.Pages;
+using VRChatAerospaceUniversity.V320.Scripts;
 
 namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts {
     [AircraftLifecycleReceiver]
@@ -18,6 +19,7 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts {
         public FDMiBool _isVHF3Transmit;
 
         [SerializeField] private DraimsPageBase[] _pages = { };
+        [SerializeField] private PageRouter _pageRouter;
 
         [PublicAPI]
         public void _OnFirstInit() {
@@ -70,6 +72,34 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts {
         [PublicAPI] public void _OnRightGenericKeyPressed() { }
         [PublicAPI] public void _OnUpKeyPressed() { }
         [PublicAPI] public void _OnDownKeyPressed() { }
+
+    #endregion
+
+    #region Navigation Keys
+
+        [PublicAPI] public void _VhfPageKeyPressed() {
+            _pageRouter._ChangePath("/draims/vhf");
+        }
+
+        [PublicAPI] public void _HfPageKeyPressed() {
+            _pageRouter._ChangePath("/draims/hf");
+        }
+
+        [PublicAPI] public void _TelPageKeyPressed() {
+            _pageRouter._ChangePath("/draims/tel");
+        }
+
+        [PublicAPI] public void _AtcPageKeyPressed() {
+            _pageRouter._ChangePath("/draims/atc");
+        }
+
+        [PublicAPI] public void _MenuPageKeyPressed() {
+            _pageRouter._ChangePath("/draims/menu");
+        }
+
+        [PublicAPI] public void _NavPageKeyPressed() {
+            _pageRouter._ChangePath("/draims/nav");
+        }
 
     #endregion
     }

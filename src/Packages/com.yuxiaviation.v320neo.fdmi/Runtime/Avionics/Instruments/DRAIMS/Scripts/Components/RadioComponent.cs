@@ -25,6 +25,8 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts.Com
 
         [SerializeField] private GameObject _isSelectedIcon;
 
+        [SerializeField] private GameObject _editingUnderline;
+
 
         [PublicAPI]
         public void _InitComponent(FDMiFloat frequency, FDMiFloat standByFrequency, FDMiBool isReceive, FDMiBool isTransmit, DRAIMS draims) {
@@ -55,6 +57,14 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts.Com
         public void _OnTransmitChange()
         {
             _transmitIcon.SetActive(_isTransmit.Data);
+        }
+
+        public void _SwipeFrequency() {
+            // ReSharper disable once SwapViaDeconstruction
+            var newStandByFrequency = _frequency.Data;
+
+            _frequency.Data = _standByFrequency.Data;
+            _standByFrequency.Data = newStandByFrequency;
         }
     }
 }

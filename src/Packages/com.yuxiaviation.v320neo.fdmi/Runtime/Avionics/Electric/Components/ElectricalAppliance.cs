@@ -73,7 +73,6 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Electric.Components {
         }
 
         private void SendEventToReceivers(string eventName) {
-            Debug.Log(eventName, this);
             foreach (var receiver in electricalEventReceivers) {
                 receiver.SendCustomEvent(eventName);
             }

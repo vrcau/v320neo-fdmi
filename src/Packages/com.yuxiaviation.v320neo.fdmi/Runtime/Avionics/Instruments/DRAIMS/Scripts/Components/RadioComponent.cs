@@ -174,7 +174,7 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts.Com
             else if (_editingTextString.Length >= 3) {
                 // ReSharper disable once ReplaceSubstringWithRangeIndexer
                 _standByFrequencyText.text = _editingTextString +
-                                             _EditingLast3DigitPlaceholder.Substring(_editingTextString.Length);
+                                             $"<size=22>{_EditingLast3DigitPlaceholder.Substring(_editingTextString.Length)}</size>";
                 return;
             }
 

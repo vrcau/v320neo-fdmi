@@ -153,6 +153,11 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts.Com
         private void UpdateEditing() {
             var isInputNotValid = UpdateNotValid();
 
+            if (_editingTextString.Length == 0) {
+                SetStandBy();
+                return;
+            }
+
             if (_editingTextString.Length == 7) {
                 if (!isInputNotValid) {
                     var newFrequency = float.Parse(_editingTextString);

@@ -1,6 +1,7 @@
 # Some useful materials
 
 - Many A320 Technical Notes & Guide Provided by [AviationHunt](https://www.aviationhunt.com/): https://www.aviationhunt.com/a320-guide/
+- Pierre-Michel Gasser's Airbus Memo: http://www.pmgasser.ch/airbus_memos/index.html
 - FCOM or AMM
 
 ## ATA 23: Communication System
@@ -10,6 +11,11 @@
 ### DRAIMS
 
 - Usage of DRAIMS & UI: https://www.youtube.com/watch?v=pASMNCvqwdY
+
+## ATA 24: Electrical Power System
+
+- Technical Notes Provided By [AviationHunt](https://www.aviationhunt.com/): https://www.aviationhunt.com/airbus-a320-ata-24/
+- Pierre-Michel Gasser's A320 ATA24 ELECTRICAL Memo: http://www.pmgasser.ch/airbus_memos/downloads/A320_ELEC.pdf
 
 ## ATA 31: Indicating and Recording Systems
 

@@ -21,8 +21,8 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Communication.AudioController 
                 isReceiveBool.subscribe(this, nameof(_OnAudioSourceStatusChange));
             }
 
-            foreach (var isReceiveBool in _isTransmit) {
-                isReceiveBool.subscribe(this, nameof(_OnAudioSourceStatusChange));
+            foreach (var isTransmitBool in _isTransmit) {
+                isTransmitBool.subscribe(this, nameof(_OnAudioSourceStatusChange));
             }
 
             foreach (var frequencyFloat in _frequency) {
@@ -31,7 +31,7 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Communication.AudioController 
         }
 
         [PublicAPI]
-        public void _OnFInit() {
+        public void _OnInit() {
             _OnAudioSourceStatusChange();
         }
 

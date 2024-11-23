@@ -135,7 +135,10 @@ namespace VRChatAerospaceUniversity.V320.Avionics.Instruments.DRAIMS.Scripts.Com
                     charToInput = '9';
                     break;
                 case DRAIMSKeyType.Clear:
-                    _editingTextString = "";
+                    if (_editingTextString.Length != 0) {
+                        _editingTextString = _editingTextString.Remove(_editingTextString.Length - 1);
+                    }
+
                     UpdateEditing();
                     return;
             }

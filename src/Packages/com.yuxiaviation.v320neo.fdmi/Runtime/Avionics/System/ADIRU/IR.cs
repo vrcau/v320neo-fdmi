@@ -28,6 +28,7 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
         [SerializeField] private FDMiVector3 Position;
 
         [SerializeField] [UdonSynced] private int _alignTime = -1;
+        [SerializeField] [UdonSynced] private int _fastAlignBeforeTime = -1;
 
         private int _lastMode = (int)ADIRUMode.OFF;
 
@@ -69,6 +70,10 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
         }
 
         private void UpdateOwner() {
+            if (AdiruMode == ADIRUMode.OFF && IsAligned) {
+                _fastAlignBeforeTime = (int)Networking.GetServerTimeInSeconds() + 10;
+            }
+
             if (AdiruMode == ADIRUMode.OFF || _lastAdiruMode != AdiruMode) {
                 if (_alignTime == -1) return;
 
@@ -80,8 +85,15 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
 
             if (_alignTime != -1) return;
 
-            _alignTime = (int)Networking.GetServerTimeInSeconds() + 30;
+            _alignTime = GetAlignTime();
             RequestSerialization();
+        }
+
+        private int GetAlignTime() {
+            if (_fastAlignBeforeTime != -1 && Networking.GetServerTimeInSeconds() > _fastAlignBeforeTime)
+                return (int)Networking.GetServerTimeInSeconds() + 10;
+
+            return (int)Networking.GetServerTimeInSeconds() + 30;
         }
 
         private void UpdateData() {

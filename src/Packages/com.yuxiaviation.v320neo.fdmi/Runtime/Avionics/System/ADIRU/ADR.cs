@@ -29,10 +29,9 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
         [SerializeField] private FDMiFloat AoA;
         [SerializeField] private FDMiFloat Mach;
 
-        [SerializeField] private bool _isAligned;
         [SerializeField] [UdonSynced] private int _alignTime = -1;
 
-        [PublicAPI] public bool IsAligned => _isAligned;
+        [PublicAPI] public bool IsAligned => _alignTime != -1 && Networking.GetServerTimeInSeconds() > _alignTime;
 
         [PublicAPI]
         public void _Init() {
@@ -53,8 +52,6 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
         }
 
         private void UpdateLocal() {
-            _isAligned = _alignTime != -1 && Networking.GetServerTimeInSeconds() > _alignTime;
-
             if (AdiruMode == ADIRUMode.OFF) {
                 ResetData();
                 return;
@@ -65,7 +62,7 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
 
         private void UpdateOwner() {
             if (AdiruMode == ADIRUMode.OFF) {
-                if (!_isAligned && _alignTime == -1) return;
+                if (!IsAligned && _alignTime == -1) return;
 
                 _alignTime = -1;
                 RequestSerialization();

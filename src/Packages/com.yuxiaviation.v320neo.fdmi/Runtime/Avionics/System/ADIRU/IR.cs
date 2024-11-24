@@ -27,7 +27,6 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
         [SerializeField] private FDMiFloat GroundSpeed;
         [SerializeField] private FDMiVector3 Position;
 
-        [SerializeField] private bool _isAligned;
         [SerializeField] [UdonSynced] private int _alignTime = -1;
 
         private int _lastMode = (int)ADIRUMode.OFF;
@@ -37,7 +36,7 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
             set => _lastMode = (int)value;
         }
 
-        [PublicAPI] public bool IsAligned => _isAligned;
+        [PublicAPI] public bool IsAligned => _alignTime != -1 && Networking.GetServerTimeInSeconds() > _alignTime;
 
         [PublicAPI]
         public void _Init() {
@@ -61,8 +60,6 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
         }
 
         private void UpdateLocal() {
-            _isAligned = _alignTime != -1 && Networking.GetServerTimeInSeconds() > _alignTime;
-
             if (AdiruMode == ADIRUMode.OFF || _lastAdiruMode != AdiruMode) {
                 ResetData();
                 return;

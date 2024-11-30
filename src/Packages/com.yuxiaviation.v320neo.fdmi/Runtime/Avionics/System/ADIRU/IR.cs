@@ -61,7 +61,7 @@ namespace VRChatAerospaceUniversity.V320.Avionics.System.ADIRU {
         }
 
         private void UpdateLocal() {
-            if (AdiruMode == ADIRUMode.OFF || _lastAdiruMode != AdiruMode) {
+            if (AdiruMode == ADIRUMode.OFF || _lastAdiruMode != AdiruMode || !IsAligned) {
                 ResetData();
                 return;
             }

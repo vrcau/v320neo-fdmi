@@ -47,7 +47,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: AttitudeIndicator/Attitude2
+    path: Content/AttitudeIndicator/Attitude2
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -81,7 +81,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: AttitudeIndicator/Roll
+    path: Content/AttitudeIndicator/Roll
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
@@ -168,7 +168,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: AttitudeIndicator/Attitude2
+    path: Content/AttitudeIndicator/Attitude2
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -207,7 +207,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: AttitudeIndicator/Attitude2
+    path: Content/AttitudeIndicator/Attitude2
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -246,7 +246,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: AttitudeIndicator/Attitude2
+    path: Content/AttitudeIndicator/Attitude2
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -285,7 +285,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: AttitudeIndicator/Roll
+    path: Content/AttitudeIndicator/Roll
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -324,7 +324,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: AttitudeIndicator/Roll
+    path: Content/AttitudeIndicator/Roll
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -363,7 +363,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: AttitudeIndicator/Roll
+    path: Content/AttitudeIndicator/Roll
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -376,7 +376,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: AttitudeIndicator/Attitude2
+    path: Content/AttitudeIndicator/Attitude2
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -388,7 +388,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: AttitudeIndicator/Attitude2
+    path: Content/AttitudeIndicator/Attitude2
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -400,7 +400,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: AttitudeIndicator/Attitude2
+    path: Content/AttitudeIndicator/Attitude2
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -412,7 +412,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: AttitudeIndicator/Roll
+    path: Content/AttitudeIndicator/Roll
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -424,7 +424,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: AttitudeIndicator/Roll
+    path: Content/AttitudeIndicator/Roll
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -436,7 +436,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: AttitudeIndicator/Roll
+    path: Content/AttitudeIndicator/Roll
     classID: 224
     script: {fileID: 0}
     flags: 0

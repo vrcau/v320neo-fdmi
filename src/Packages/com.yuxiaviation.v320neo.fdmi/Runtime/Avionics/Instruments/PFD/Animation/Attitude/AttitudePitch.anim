@@ -133,7 +133,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: AttitudeIndicator/Roll/Attitude
+    path: Content/AttitudeIndicator/Roll/Attitude
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -292,7 +292,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: AttitudeIndicator/Roll/Attitude
+    path: Content/AttitudeIndicator/Roll/Attitude
     classID: 224
     script: {fileID: 0}
     flags: 0

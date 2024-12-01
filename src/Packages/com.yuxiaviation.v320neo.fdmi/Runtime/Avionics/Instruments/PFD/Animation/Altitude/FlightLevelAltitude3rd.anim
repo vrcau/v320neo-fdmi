@@ -214,7 +214,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: AltitudeIndicator/FlightLevelAltitudeIndicator/3rd
+    path: Content/AltitudeIndicator/FlightLevelAltitudeIndicator/3rd
     classID: 224
     script: {fileID: 0}
     flags: 0
@@ -454,7 +454,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.y
-    path: AltitudeIndicator/FlightLevelAltitudeIndicator/3rd
+    path: Content/AltitudeIndicator/FlightLevelAltitudeIndicator/3rd
     classID: 224
     script: {fileID: 0}
     flags: 0

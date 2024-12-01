@@ -215,7 +215,7 @@ TextureImporter:
         width: 206
         height: 958
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -223,6 +223,90 @@ TextureImporter:
       bones: []
       spriteID: d850072f85f0dd946af90adcd71771e2
       internalID: 1561208482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VerticalSpeedFail
+      rect:
+        serializedVersion: 2
+        x: 2018
+        y: 0
+        width: 30
+        height: 312
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46b5b95c34eb86845841b344f63884f0
+      internalID: 894632953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AltitudeFail
+      rect:
+        serializedVersion: 2
+        x: 1956
+        y: 0
+        width: 62
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb799589a7ffa3c4aa0d2537a7494bdc
+      internalID: -526804300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpeedFail
+      rect:
+        serializedVersion: 2
+        x: 1878
+        y: 0
+        width: 74
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0444c8a3093ec714ab216be4596bf824
+      internalID: 800396215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeadingFail
+      rect:
+        serializedVersion: 2
+        x: 1646
+        y: 0
+        width: 227
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b13387fffe61164b93ae67aa50d9d97
+      internalID: -1461035720
       vertices: []
       indices: 
       edges: []
@@ -238,12 +322,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      AltitudeFail: -526804300
       Attitude: -1036367898
       Attitude2: -1099773775
       AttitudeGraduation: 1561208482
+      HeadingFail: -1461035720
       PFDHeadingTape: -754980087
       PFDSpeedIndicator: -671621930
       PFDSpeedTape: -2144930020
+      SpeedFail: 800396215
+      VerticalSpeedFail: 894632953
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
